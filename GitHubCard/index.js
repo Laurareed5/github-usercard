@@ -54,7 +54,7 @@ const followersArray = [];
 
 */
 
-function githubCards(obj) {
+function githubCards(gitCard) {
 
   const cardClass = document.createElement('div');
   cardClass.classList.add('card');
@@ -65,35 +65,49 @@ function githubCards(obj) {
   infoClass.classList.add('card-info');
  
 
-  const userName = document.createElement('h3');
-  userName.classList.add('name');
+  const nameElement = document.createElement('h3');
+  nameElement.classList.add('name');
   
-  const userNameTwo = document.createElement('p');
-  userNameTwo.classList.add('username');
+  const userName = document.createElement('p');
+  userName.classList.add('username');
 
-  const pLocation = document.createElement('p');
+  const locate = document.createElement('p');
 
-  const pProfile = document.createElement('p');
+  const profileElement = document.createElement('p');
 
-  const aTag = document.createElement('a');
+  const link = document.createElement('a');
 
-  const pFollowers = document.createElement('p');
+  const followersElement = document.createElement('p');
 
-  const pFollowing = document.createElement('p');
+  const followingElement = document.createElement('p');
 
-  const pBio = document.createElement('p');
+  const bioElement = document.createElement('p');
 
 
   cardClass.appendChild(imgSrc);
   cardClass.appendChild(infoClass);
+  infoClass.appendChild(nameElement);
   infoClass.appendChild(userName);
-  infoClass.appendChild(userNameTwo);
-  infoClass.appendChild(pLocation);
-  infoClass.appendChild(pProfile);
-  infoClass.appendChild(aTag);
-  infoClass.appendChild(pFollowers);
-  infoClass.appendChild(pFollowing);
-  infoClass.appendChild(pBio);
+  infoClass.appendChild(locate);
+  infoClass.appendChild(profileElement);
+  infoClass.appendChild(link);
+  infoClass.appendChild(followersElement);
+  infoClass.appendChild(followingElement);
+  infoClass.appendChild(bioElement);
+
+
+  imgSrc.src = gitCard.avatar_url;
+  nameElement.textContent = gitCard.name;
+  userName.textContent = gitCard.login;
+  locate.textContent = `Location: ${gitCard.location}`;
+  profileElement.textContent = `Profile: ${gitCard.name}`;
+  link.textContent = `Link: ${gitCard.html_url}`;
+  followersElement.textContent = `Followers: ${gitCard.followers}`;
+  followingElement.textContent = `Following: ${gitCard.following}`;
+  bioElement.textContent = `Bio: ${gitCard.bio}`;
+
+
+  return cardClass;
 }
 
 /* List of LS Instructors Github username's: 
