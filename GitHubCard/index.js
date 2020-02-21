@@ -68,7 +68,32 @@ function githubCards(obj) {
   const userName = document.createElement('h3');
   userName.classList.add('name');
   
+  const userNameTwo = document.createElement('p');
+  userNameTwo.classList.add('username');
 
+  const pLocation = document.createElement('p');
+
+  const pProfile = document.createElement('p');
+
+  const aTag = document.createElement('a');
+
+  const pFollowers = document.createElement('p');
+
+  const pFollowing = document.createElement('p');
+
+  const pBio = document.createElement('p');
+
+
+  cardClass.appendChild(imgSrc);
+  cardClass.appendChild(infoClass);
+  infoClass.appendChild(userName);
+  infoClass.appendChild(userNameTwo);
+  infoClass.appendChild(pLocation);
+  infoClass.appendChild(pProfile);
+  infoClass.appendChild(aTag);
+  infoClass.appendChild(pFollowers);
+  infoClass.appendChild(pFollowing);
+  infoClass.appendChild(pBio);
 }
 
 /* List of LS Instructors Github username's: 
