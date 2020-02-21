@@ -61,7 +61,8 @@ function githubCards(obj) {
 
   const imgSrc = document.createElement('img');
 
-  
+  const infoClass = document.createElement('div');
+  infoClass.classList.add('card-info');
 }
 
 /* List of LS Instructors Github username's: 
