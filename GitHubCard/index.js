@@ -2,15 +2,7 @@
            (replacing the palceholder with your Github name):
            https://api.github.com/users/<your name>
 */
-axios
-  .get("https://api.github.com/users/Laurareed5")
-  .then(response => {
-    console.log(response);
-    cardPoint.append(userCard(response.data));
-  })
-  .catch(error => {
-    console.log("the data was not returned", error);
-  });
+
 /* Step 2: Inspect and study the data coming back, this is YOUR 
    github info! You will need to understand the structure of this 
    data in order to use it to build your component function 
@@ -32,7 +24,6 @@ axios
           user, and adding that card to the DOM.
 */
 
-const followersArray = [];
 
 /* Step 3: Create a function that accepts a single object as its only argument,
           Using DOM methods and properties, create a component that will return the following DOM element:
@@ -55,34 +46,31 @@ const followersArray = [];
 */
 
 function githubCards(gitCard) {
+  const cardClass = document.createElement("div");
+  cardClass.classList.add("card");
 
-  const cardClass = document.createElement('div');
-  cardClass.classList.add('card');
+  const imgSrc = document.createElement("img");
 
-  const imgSrc = document.createElement('img');
-  
-  const infoClass = document.createElement('div');
-  infoClass.classList.add('card-info');
- 
+  const infoClass = document.createElement("div");
+  infoClass.classList.add("card-info");
 
-  const nameElement = document.createElement('h3');
-  nameElement.classList.add('name');
-  
-  const userName = document.createElement('p');
-  userName.classList.add('username');
+  const nameElement = document.createElement("h3");
+  nameElement.classList.add("name");
 
-  const locate = document.createElement('p');
+  const userName = document.createElement("p");
+  userName.classList.add("username");
 
-  const profileElement = document.createElement('p');
+  const locate = document.createElement("p");
 
-  const link = document.createElement('a');
+  const profileElement = document.createElement("p");
 
-  const followersElement = document.createElement('p');
+  const link = document.createElement("a");
 
-  const followingElement = document.createElement('p');
+  const followersElement = document.createElement("p");
 
-  const bioElement = document.createElement('p');
+  const followingElement = document.createElement("p");
 
+  const bioElement = document.createElement("p");
 
   cardClass.appendChild(imgSrc);
   cardClass.appendChild(infoClass);
@@ -90,26 +78,38 @@ function githubCards(gitCard) {
   infoClass.appendChild(userName);
   infoClass.appendChild(locate);
   infoClass.appendChild(profileElement);
-  infoClass.appendChild(link);
+  profileElement.appendChild(link);
   infoClass.appendChild(followersElement);
   infoClass.appendChild(followingElement);
   infoClass.appendChild(bioElement);
-
 
   imgSrc.src = gitCard.avatar_url;
   nameElement.textContent = gitCard.name;
   userName.textContent = gitCard.login;
   locate.textContent = `Location: ${gitCard.location}`;
-  profileElement.textContent = `Profile: ${gitCard.name}`;
+  profileElement.textContent = `Profile: ${gitCard.html_url}`;
   link.textContent = `Link: ${gitCard.html_url}`;
   followersElement.textContent = `Followers: ${gitCard.followers}`;
   followingElement.textContent = `Following: ${gitCard.following}`;
   bioElement.textContent = `Bio: ${gitCard.bio}`;
 
-
   return cardClass;
 }
 
+const entryPoint = document.querySelector(".cards");
+
+axios
+  .get("https://api.github.com/users/Laurareed5")
+  .then(response => {
+    entryPoint.append(githubCards(response.data));
+  })
+  .catch(error => {
+    console.log("the data was not returned", error);
+  });
+
+  const followersArray = ["raegdev", "amberchunn", "xpinero", "weinerjm14"];
+
+  
 /* List of LS Instructors Github username's: 
   tetondan
   dustinmyers
