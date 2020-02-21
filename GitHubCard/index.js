@@ -23,8 +23,15 @@
           Using that array, iterate over it, requesting data for each user, creating a new card for each
           user, and adding that card to the DOM.
 */
-
-
+const followersArray = [
+  "raegdev",
+  "amberchunn",
+  "xpinero",
+  "weinerjm14",
+  "Eloy2",
+  "MystiDyse",
+  "Cobrettie"
+];
 /* Step 3: Create a function that accepts a single object as its only argument,
           Using DOM methods and properties, create a component that will return the following DOM element:
 
@@ -107,9 +114,42 @@ axios
     console.log("the data was not returned", error);
   });
 
-  const followersArray = ["raegdev", "amberchunn", "xpinero", "weinerjm14"];
 
-  
+
+// followersArray.forEach(follower => {
+//   axios
+//     .get(`https://api.github.com/users/Laurareed5/followers`)
+//     .then(response => {
+//       console.log(response);
+//       entryPoint.append(githubCards(response.data));
+//     })
+//     .catch(error => {
+//       console.log(error);
+//     });
+// });
+
+axios
+  .get("https://api.github.com/users/Laurareed5/followers")
+  .then(response => {
+    // console.log(response);
+    response.data.forEach(follower => {
+      axios
+        .get(follower.url)
+        .then(followerResponse => {
+          // console.log(followerResponse);
+          entryPoint.append(githubCards(followerResponse.data));
+        })
+        .catch(followerError => {
+          console.log(followerError);
+        });
+    });
+  })
+  .catch(error => {
+    console.log(error);
+  });
+
+
+
 /* List of LS Instructors Github username's: 
   tetondan
   dustinmyers
