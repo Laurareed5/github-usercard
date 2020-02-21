@@ -60,9 +60,15 @@ function githubCards(obj) {
   cardClass.classList.add('card');
 
   const imgSrc = document.createElement('img');
-
+  
   const infoClass = document.createElement('div');
   infoClass.classList.add('card-info');
+ 
+
+  const userName = document.createElement('h3');
+  userName.classList.add('name');
+  
+
 }
 
 /* List of LS Instructors Github username's: 
