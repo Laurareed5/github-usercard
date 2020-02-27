@@ -23,9 +23,15 @@
           Using that array, iterate over it, requesting data for each user, creating a new card for each
           user, and adding that card to the DOM.
 */
-
-const followersArray = [];
-
+const followersArray = [
+  "raegdev",
+  "amberchunn",
+  "xpinero",
+  "weinerjm14",
+  "Eloy2",
+  "MystiDyse",
+  "Cobrettie"
+];
 /* Step 3: Create a function that accepts a single object as its only argument,
           Using DOM methods and properties, create a component that will return the following DOM element:
 
@@ -45,6 +51,104 @@ const followersArray = [];
 </div>
 
 */
+
+function githubCards(gitCard) {
+  const cardClass = document.createElement("div");
+  cardClass.classList.add("card");
+
+  const imgSrc = document.createElement("img");
+
+  const infoClass = document.createElement("div");
+  infoClass.classList.add("card-info");
+
+  const nameElement = document.createElement("h3");
+  nameElement.classList.add("name");
+
+  const userName = document.createElement("p");
+  userName.classList.add("username");
+
+  const locate = document.createElement("p");
+
+  const profileElement = document.createElement("p");
+
+  const link = document.createElement("a");
+
+  const followersElement = document.createElement("p");
+
+  const followingElement = document.createElement("p");
+
+  const bioElement = document.createElement("p");
+
+  cardClass.appendChild(imgSrc);
+  cardClass.appendChild(infoClass);
+  infoClass.appendChild(nameElement);
+  infoClass.appendChild(userName);
+  infoClass.appendChild(locate);
+  infoClass.appendChild(profileElement);
+  profileElement.appendChild(link);
+  infoClass.appendChild(followersElement);
+  infoClass.appendChild(followingElement);
+  infoClass.appendChild(bioElement);
+
+  imgSrc.src = gitCard.avatar_url;
+  nameElement.textContent = gitCard.name;
+  userName.textContent = gitCard.login;
+  locate.textContent = `Location: ${gitCard.location}`;
+  profileElement.textContent = `Profile: ${gitCard.html_url}`;
+  link.textContent = `Link: ${gitCard.html_url}`;
+  followersElement.textContent = `Followers: ${gitCard.followers}`;
+  followingElement.textContent = `Following: ${gitCard.following}`;
+  bioElement.textContent = `Bio: ${gitCard.bio}`;
+
+  return cardClass;
+}
+
+const entryPoint = document.querySelector(".cards");
+
+axios
+  .get("https://api.github.com/users/Laurareed5")
+  .then(response => {
+    entryPoint.append(githubCards(response.data));
+  })
+  .catch(error => {
+    console.log("the data was not returned", error);
+  });
+
+
+
+// followersArray.forEach(follower => {
+//   axios
+//     .get(`https://api.github.com/users/Laurareed5/followers`)
+//     .then(response => {
+//       console.log(response);
+//       entryPoint.append(githubCards(response.data));
+//     })
+//     .catch(error => {
+//       console.log(error);
+//     });
+// });
+
+axios
+  .get("https://api.github.com/users/Laurareed5/followers")
+  .then(response => {
+    // console.log(response);
+    response.data.forEach(follower => {
+      axios
+        .get(follower.url)
+        .then(followerResponse => {
+          // console.log(followerResponse);
+          entryPoint.append(githubCards(followerResponse.data));
+        })
+        .catch(followerError => {
+          console.log(followerError);
+        });
+    });
+  })
+  .catch(error => {
+    console.log(error);
+  });
+
+
 
 /* List of LS Instructors Github username's: 
   tetondan
